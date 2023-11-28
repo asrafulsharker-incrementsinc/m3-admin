@@ -1,20 +1,21 @@
-// src/components/Login.js
 import React, { useState } from 'react';
-import { Button, Container, TextField } from "@mui/material";
-import Footer from "../Footer/Footer";
-import Nav from "../Header/Nav";
+import { Button, Container, TextField, IconButton, InputAdornment } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-// Correct import statement
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from "../Footer/Footer";
+import Nav from "../Header/Nav";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function Login() {
-    // const history = useHistory();
-
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -23,14 +24,25 @@ function Login() {
         });
     };
 
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://your-backend-api/login/', formData);
+            const response = await axios.post('http://192.168.27.211:8000/user/login/', formData);
             console.log('Login successful:', response.data);
 
-            history.push('/dashboard');
+            // Show success toast
+            toast.success('Login successful');
+
+            // Assuming you have the 'history' object available
+            // history.push('/dashboard');
         } catch (error) {
             console.error('Login failed:', error.response.data);
+
+            // Show error toast
+            toast.error('Login failed. Please check your credentials.');
         }
     };
 
@@ -61,7 +73,7 @@ function Login() {
                         <TextField
                             id="outlined-password-input"
                             label="Password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             autoComplete="current-password"
                             variant="outlined"
                             required
@@ -70,6 +82,15 @@ function Login() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={handleTogglePassword} edge="end">
+                                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <p style={{ fontSize: "12px", fontWeight: "400", marginBlockStart: "1em", marginBlockEnd: "1em" }}>
                             Forget Password? <a href="#" style={{ color: "#44A08D" }}>Click here</a>
@@ -83,6 +104,9 @@ function Login() {
             </Container>
 
             <Footer />
+
+            {/* Toast Container */}
+            <ToastContainer />
         </div>
     );
 }

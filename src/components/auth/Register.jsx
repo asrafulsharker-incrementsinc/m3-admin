@@ -58,7 +58,7 @@ function Register() {
   };
 
   const isPasswordValid = () => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()~,.?":{}|<>]).{8,}$/;
     return passwordRegex.test(formData.password1);
   };
 
