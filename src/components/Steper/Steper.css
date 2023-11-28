@@ -1,0 +1,54 @@
+.steper {
+    position: relative;
+    margin-top: 10%;
+}
+
+.steper1 {
+    height: 25px;
+    background-color: #b0b0b0;
+    border-radius: 20px;
+    align-items: center;
+    display: flex;
+    align-items: center;
+}
+
+.steperInsider {
+    height: 18px;
+    background-color: #d0c724;
+    position: absolute;
+    width: 32%;
+    border-radius: 20px;
+    margin-left: 4px;
+    transition: width 0.7s, background-color 0.7s; /* Added transition here */
+}
+
+.oneIconSteper {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #d0c724;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 5px solid #b0b0b0;
+    margin-top: -33px;
+    margin-left: 30%;
+}
+
+.twoIconSteper {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #b0b0b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 5px solid #b0b0b0;
+    margin-top: -33px;
+    margin-left: 70%;
+}
+

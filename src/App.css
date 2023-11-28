@@ -1,0 +1,23 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+body {
+  background: var(--BG-color, #F0F0F0);
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  display: block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+/* footer  */
+
+.footer{
+  background: linear-gradient(270deg, #44A08D -25.11%, #093637 135.98%);
+  padding: 24px 64px;
+align-items: center;
+}
