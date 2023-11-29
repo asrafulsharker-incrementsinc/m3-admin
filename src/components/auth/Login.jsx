@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Container, TextField, IconButton, InputAdornment } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";  // Import useNavigate instead of useHistory
 import axios from 'axios';
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "../Footer/Footer";
@@ -10,6 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function Login() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -30,14 +32,20 @@ function Login() {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://192.168.27.211:8000/user/login/', formData);
+            const response = await axios.post('http://192.168.27.90:8000/user/login/', formData);
             console.log('Login successful:', response.data);
+
+            // Correct the destructuring to get tokens from response.data.data
+            const { access, refresh } = response.data.data;
 
             // Show success toast
             toast.success('Login successful');
+            // Store tokens
+            localStorage.setItem('access_token', access);
+            localStorage.setItem('refresh_token', refresh);
 
-            // Assuming you have the 'history' object available
-            // history.push('/dashboard');
+            // Navigate to the dashboard
+            navigate('/dashboard');
         } catch (error) {
             console.error('Login failed:', error.response.data);
 
@@ -45,6 +53,7 @@ function Login() {
             toast.error('Login failed. Please check your credentials.');
         }
     };
+
 
     return (
         <div style={{ height: "100vh", display: "flex", flexDirection: "column", gap: "10px" }}>

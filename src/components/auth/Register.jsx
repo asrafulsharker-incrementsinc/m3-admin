@@ -1,10 +1,11 @@
-// src/components/Register.js
 import React, { useState } from 'react';
 import { Button, Checkbox, Container, IconButton, TextField, FormControlLabel } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Nav from '../Header/Nav';
 import Footer from '../Footer/Footer';
 
@@ -72,14 +73,32 @@ function Register() {
     }
 
     try {
-      const response = await axios.post('http://192.168.27.211:8000/user/register/', formData);
+      const response = await axios.post('http://192.168.27.90:8000/user/register/', formData);
       console.log(response.data);
+
+      // Assuming the server responds with the tokens
+      const { access, refresh } = response.data.data;
+
+      // Store tokens in local storage
+      localStorage.setItem('access_token', access);
+      localStorage.setItem('refresh_token', refresh);
+
+      // Display success toast
+      toast.success('Registration successful. Redirecting to account verification.');
 
       // Use navigate instead of history.push for redirection
       navigate('/verifyaccount');
     } catch (error) {
       console.error('Registration failed:', error);
-      // Handle registration failure (e.g., display an error message)
+
+
+      // Display error toast with more details from the server response
+      if (error.response && error.response.data) {
+        toast.error(`Registration failed: ${error.response.data.email || 'Unknown error'}`);
+      } else {
+        // Handle other registration failure (e.g., display a generic error message)
+        toast.error('Registration failed. Please try again.');
+      }
     }
   };
 
@@ -209,6 +228,7 @@ function Register() {
             </p>
           </div>
         </div>
+        <ToastContainer />
         <Footer />
       </>
   );

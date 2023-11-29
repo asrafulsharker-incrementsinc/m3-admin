@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import PrivateRoute from "./components/Root/PrivateRoute.jsx";
 import "./index.css";
 import Root from "./components/Root/Root";
 import Login from "./components/auth/Login";
@@ -22,48 +23,52 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
-        element: <Login/>,
+        element: <Login />,
       },
       {
         path: '/register',
-        element: <Register/>,
+        element: <Register />,
       },
       {
         path: '/verifyaccount',
-        element: <VerifyAccount/>,
+        element: <VerifyAccount />,
       },
       {
-        path: '/createresturent',
-        element: <CreateResturent/>,
+        path: '/create-restaurant',
+        element: <CreateResturent />,
       },
       {
-        path: '/resturentinformation',
-        element: <ResturentInformation/>,
+        path: '/restaurantinformation',
+        element: <ResturentInformation />,
       },
       {
         path: '/forgetpassword',
-        element: <ForgetPassword/>,
+        element: <ForgetPassword />,
       },
       {
         path: '/resetpassword',
-        element: <ResetPassword/>,
+        element: <ResetPassword />,
       },
       {
         path: '/dashboard',
-        element: <Dashboard/>,
+        element: <PrivateRoute element={<Dashboard />} />,
       },
       {
         path: '/steper',
-        element: <Steper/>,
+        element: <Steper />,
       },
-      
-    ]
+      {
+        path: '/dash',
+        element: <Dashboard />,
+      },
+    ],
   },
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
