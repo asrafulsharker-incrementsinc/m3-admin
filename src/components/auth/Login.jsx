@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Container, TextField, IconButton, InputAdornment } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";  // Import useNavigate instead of useHistory
 import axios from 'axios';
-
+import '../../App.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "../Footer/Footer";
@@ -112,10 +112,10 @@ function Login() {
                 </div>
             </Container>
 
-            <Footer />
 
             {/* Toast Container */}
             <ToastContainer />
+            <Footer/>
         </div>
     );
 }

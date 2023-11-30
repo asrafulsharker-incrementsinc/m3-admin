@@ -46,14 +46,13 @@ const router = createBrowserRouter([
         element: <ResturentInformation />,
       },
       {
-        path: '/forgetpassword',
+        path: '/forget-password',
         element: <ForgetPassword />,
       },
       {
-        path: '/resetpassword',
+        path: '/reset-password/:token',
         element: <ResetPassword />,
-      },
-      {
+      },{
         path: '/dashboard',
         element: <PrivateRoute element={<Dashboard />} />,
       },
@@ -62,7 +61,7 @@ const router = createBrowserRouter([
         element: <Steper />,
       },
       {
-        path: '/dash',
+        path: '/dashboar',
         element: <Dashboard />,
       },
     ],

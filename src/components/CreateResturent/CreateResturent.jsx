@@ -98,7 +98,7 @@ function CreateRestaurantAndInformation() {
       console.log('Successfully submitted both restaurant and information data.');
 
       // Redirect or perform other actions after successful submission
-      navigate('/finalpage');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Failed to create restaurant or submit information:', error.response ? error.response.data : error.message);
       console.error('Failed to submit both restaurant and information data. Please try again.');

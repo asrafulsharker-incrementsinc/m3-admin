@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Nav from '../Header/Nav';
 import Footer from '../Footer/Footer';
-
+import '../../App.css';
 function Register() {
   const navigate = useNavigate();
 
@@ -77,12 +77,12 @@ function Register() {
       console.log(response.data);
 
       // Assuming the server responds with the tokens
-      const { access, refresh } = response.data.data;
-
+      const { user_id} = response.data; // Assuming the structure is { access, refresh }
+      const { access, refresh} = response.data.token;
       // Store tokens in local storage
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
-
+      localStorage.setItem('user_id', user_id);
       // Display success toast
       toast.success('Registration successful. Redirecting to account verification.');
 
@@ -90,7 +90,6 @@ function Register() {
       navigate('/verifyaccount');
     } catch (error) {
       console.error('Registration failed:', error);
-
 
       // Display error toast with more details from the server response
       if (error.response && error.response.data) {
@@ -101,6 +100,7 @@ function Register() {
       }
     }
   };
+
 
   return (
       <>

@@ -1,16 +1,20 @@
 // PrivateRoute.jsx
-
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-const PrivateRoute = ({ element, ...rest }) => {
-    // Check if the user is authenticated
-    const isAuthenticated = localStorage.getItem('access_token') !== null;
+const isAuthenticated = () => {
+    // Check the access token for authentication. Replace this logic with your actual authentication check.
+    const accessToken = localStorage.getItem('access_token');
+    return accessToken !== null;
+};
 
-    return isAuthenticated ? (
-        <Route {...rest} element={element} />
+const PrivateRoute = ({ element: Element, ...rest }) => {
+    return isAuthenticated() ? (
+        <Routes>
+            <Route {...rest} element={<Element {...rest} />} />
+        </Routes>
     ) : (
-        <Navigate to="/login" replace state={{ from: rest.location }} />
+        <Navigate to="/" />
     );
 };
 
