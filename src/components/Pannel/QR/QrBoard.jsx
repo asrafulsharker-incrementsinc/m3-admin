@@ -51,6 +51,41 @@ const QrBoard = () => {
         setAnchorEl(null);
     };
 
+    const handleDownloadPDF = async () => {
+        try {
+            const accessToken = localStorage.getItem('access_token');
+            const pdfDownloadUrl = 'http://192.168.27.90:8000/rest/qr-pdf-download/';
+
+            const response = await axios.get(pdfDownloadUrl, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                responseType: 'arraybuffer',  // Specify the response type as 'arraybuffer'
+            });
+
+            // Create a Blob from the array buffer
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            console.log(response.data)
+
+            // Create a link element
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'qr_code.pdf';
+
+            // Append the link to the body and trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Clean up
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+            // Handle the error, e.g., show an error toast
+        }
+
+    };
+
+
     return (
         <div>
             <p style={{ color: "#44a08d", fontWeight: 'bold', fontSize: "30px", paddingTop: "20px" }}>QR Code</p>
@@ -76,7 +111,7 @@ const QrBoard = () => {
                         }}
                     >
                         <MenuItem onClick={handleClose}>Download as png</MenuItem>
-                        <MenuItem onClick={handleClose}>Download as PDF</MenuItem>
+                        <MenuItem onClick={handleDownloadPDF}>Download as PDF</MenuItem>
                     </Menu>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>

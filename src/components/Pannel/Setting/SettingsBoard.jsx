@@ -19,7 +19,7 @@ const SettingsBoard = () => {
     const [newPassword, setNewPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
     const [feedback, setFeedback] = React.useState('');
-    const [feedbackDescription, setFeedbackDescription] = React.useState(false);
+    const [feedbackDescription, setFeedbackDescription] = React.useState();
     return (
         <div style={{width:"100%",marginRight:"20px"}}>
             <p style={{ color: "#44a08d", fontWeight: 'bold', fontSize: "30px", paddingTop: "20px" }}>Settings</p>
@@ -148,8 +148,6 @@ const SettingsBoard = () => {
                                     onChange={(event) => {
                                         setOldPassword(event.target.value);
                                     }}
-
-
                                 />
                             </Grid>
 
@@ -187,9 +185,7 @@ const SettingsBoard = () => {
                                     }}
                                 />
                             </Grid>
-
                         </Grid>
-
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: "end" ,marginTop:"20px"}}>
                         <Button
@@ -204,8 +200,6 @@ const SettingsBoard = () => {
                     </div>
                 </AccordionDetails>
             </Accordion>
-
-
             {/*give feedback */}
 
             <Accordion sx={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "10px", marginBottom: '20px' }}>
@@ -219,12 +213,12 @@ const SettingsBoard = () => {
                         Give Feedback
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails style={{ display: "flex", justifyContent: "space-between", width: "100%", gap: "20px", flexDirection: 'column' }}>
+                <AccordionDetails style={{ display: "flex", justifyContent: "space-between", gap: "20px", flexDirection: 'column' }}>
                     <TextField
                         id="outlined-controlled"
                         label="Feedback"
                         required
-                        style={{ width: "100%" }}
+                        // style={{ width: "100%" }}
                         name="feedback"
                         value={feedback}
                         onChange={(event) => {
@@ -242,6 +236,7 @@ const SettingsBoard = () => {
                         onChange={(event) => {
                             setFeedbackDescription(event.target.value);
                         }}
+                        // style={{ width: "100%" }}
                     />
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: "end" }}>
                         <Button
@@ -255,9 +250,6 @@ const SettingsBoard = () => {
                     </div>
                 </AccordionDetails>
             </Accordion>
-
-
-
         </div>
     );
 };
