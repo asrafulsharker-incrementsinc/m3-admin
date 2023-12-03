@@ -1,21 +1,20 @@
-import React from 'react'
+import React from 'react';
 import Nav from '../Nav/Nav'
 import Menubar from '../Manubar/Manubar'
+import QrBoard from "./QrBoard.jsx";
 import CenterBoard from '../CenterBoard/CenterBoard'
 import RecentOrder from '../RecentOrder/RecentOrder'
-
-function Dashboard() {
-  return (
-    <>
-    <Nav/>
+const Qr = () => {
+    return (
+<>
+        <Nav/>
     <div className="" style={{display:"flex", gap:"20px"}}>
         <Menubar />
-        <CenterBoard/>
-        <RecentOrder />
+       <QrBoard/>
 
     </div>
-    </>
-  )
-}
+</>
+    );
+};
 
-export default Dashboard;
+export default Qr;

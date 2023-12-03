@@ -1,27 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function ResturentInformationPannel() {
+    const [restaurantData, setRestaurantData] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const accessToken = localStorage.getItem('access_token');
+                const response = await axios.get('http://192.168.27.90:8000/rest/restaurant/', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                // Assuming the response is an array and you want the first item
+                const firstRestaurant = response.data[0];
+                setRestaurantData(firstRestaurant);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    if (!restaurantData) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <>
-            <div className="" style={{ background: "#F0F0F0", padding: "15px", borderRadius: "8px" }}>
-                <div className="" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <img src="/images/additional image/RestaurantLogo.jpg" alt="" />
-                    <p style={{ fontSize: "20px", color: "#49454F", fontWeight: "700" }}>Sultan's Dine</p>
-                </div>
-                <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                    <img src="../../../../public/images/icons/location_on.svg" alt="" />
-                    <p style={{ fontSize: "14px", color: "#464646" }}>Quantum Emerald Point, H# 1/B(1st floor, Gareeb-e-Nawaz Ave, Dhaka 1230</p>
-                </div>
-                <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px", alignItems: "center" }}>
-                    <img src="../../../../public/images/icons/call.svg" alt="" />
-                    <p style={{ fontSize: "14px", color: "#464646" }}>+8801407-059987</p>
-                </div>
-                <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px", alignItems: "center" }}>
-                    <img src="../../../../public/images/icons/mail.svg" alt="" />
-                    <p style={{ fontSize: "14px", color: "#464646" }}>sultans.dine.uttara13@gmail.com</p>
-                </div>
+        <div className="" style={{ background: "#F0F0F0", padding: "15px", borderRadius: "8px" }}>
+            <div className="" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <img src={restaurantData.logo} alt=""  style={{width:"40px", height:"40px", borderRadius:"50%"}}/>
+                <p style={{ fontSize: "20px", color: "#49454F", fontWeight: "700" }}>{restaurantData.name}</p>
             </div>
-        </>)
+            <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                <img src="/images/icons/location_on.svg" alt="" />
+                <p style={{ fontSize: "14px", color: "#464646" }}>{restaurantData.address}</p>
+            </div>
+            <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px", alignItems: "center" }}>
+                <img src="/images/icons/call.svg" alt="" />
+                <p style={{ fontSize: "14px", color: "#464646" }}>{restaurantData.phone}</p>
+            </div>
+            <div className="" style={{ display: "flex", gap: "10px", marginTop: "10px", alignItems: "center" }}>
+                <img src="/images/icons/mail.svg" alt="" />
+                <p style={{ fontSize: "14px", color: "#464646" }}>{restaurantData.email}</p>
+            </div>
+        </div>
+    );
 }
 
-export default ResturentInformationPannel
+export default ResturentInformationPannel;

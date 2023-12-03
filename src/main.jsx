@@ -18,6 +18,7 @@ import ForgetPassword from "./components/auth/ForgetPassword";
 import ResetPassword from "./components/auth/ResetPassword";
 import Dashboard from "./components/Pannel/Dashboard/Dashboard";
 import Steper from "./components/Steper/Steper.jsx";
+import Qr from "./components/Pannel/QR/Qr.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,8 +54,16 @@ const router = createBrowserRouter([
         path: '/reset-password/:token',
         element: <ResetPassword />,
       },{
-        path: '/dashboard',
-        element: <PrivateRoute element={<Dashboard />} />,
+        path: '/dashboard',exact: true,
+        element:<PrivateRoute>
+          <Dashboard/>
+        </PrivateRoute>
+      },
+      {
+        path: '/qr',exact: true,
+        element:<PrivateRoute>
+          <Qr/>
+        </PrivateRoute>
       },
       {
         path: '/steper',
