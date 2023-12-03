@@ -11,10 +11,26 @@ import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import QrCodeScannerOutlinedIcon from '@mui/icons-material/QrCodeScannerOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { Link, NavLink } from "react-router-dom"
+import {Link, NavLink, useNavigate} from "react-router-dom"
 import './MenuBar.css'
 
 function Manubar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    try {
+      // Clear user authentication state (remove access_token and refresh_token from local storage, etc.)
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+
+      // Use useNavigate to navigate programmatically
+      navigate('/');
+
+      // You can also use window.location.href = '/login'; if navigate doesn't work for some reason
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
   return (
     <>
       <div className="n" style={{ width: "18%", backgroundColor: "#FFFF", padding: "10px" }}>
@@ -114,8 +130,8 @@ function Manubar() {
           <p style={{ fontSize: "15px", marginTop: "10px" }}>Warnning</p>
           <div className="" style={{ backgroundColor: "#44a08d", width: "100%", height: "1px", marginBottom: "10px" }}></div>
 
-          <NavLink to="/logout" exact style={{ textDecoration: 'none', cursor: 'pointer',borderRadius:"5px",color:"#464646",fontSize:"16px" }}>
-          <div className="button" style={{ display: "flex", alignItems: "center", padding: "8px" }}>
+          <NavLink onClick={handleLogout} exact style={{ textDecoration: 'none', cursor: 'pointer',borderRadius:"5px",color:"#464646",fontSize:"16px" }}>
+          <div  className="button" style={{ display: "flex", alignItems: "center", padding: "8px" }}>
             <LogoutOutlinedIcon />
             <p style={{ fontSize: "18px", marginLeft: "10px" }}>Logout</p>
           </div>

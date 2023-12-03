@@ -59,7 +59,7 @@ function Login() {
         <div style={{ height: "100vh", display: "flex", flexDirection: "column", gap: "10px" }}>
             <Nav />
 
-            <Container>
+            <Container style={{ flex: "1", paddingBottom: "50px" }}>
                 <div className="login" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center" }}>
                     <div className="login-left-part">
                         <p style={{ fontWeight: "400", fontSize: "48px", textAlign: "center", color: "#44A08D", lineHeight: "normal", padding: "0px" }}>Welcome back!</p>
@@ -114,8 +114,9 @@ function Login() {
 
 
             {/* Toast Container */}
-            <ToastContainer />
             <Footer/>
+            <ToastContainer />
+
         </div>
     );
 }

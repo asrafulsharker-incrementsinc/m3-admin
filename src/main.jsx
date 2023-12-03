@@ -19,6 +19,7 @@ import ResetPassword from "./components/auth/ResetPassword";
 import Dashboard from "./components/Pannel/Dashboard/Dashboard";
 import Steper from "./components/Steper/Steper.jsx";
 import Qr from "./components/Pannel/QR/Qr.jsx";
+import Settings from "./components/Pannel/Setting/Settings.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboar',
         element: <Dashboard />,
+      },
+      {
+        path: '/settings',
+        element: <Settings />,
       },
     ],
   },
